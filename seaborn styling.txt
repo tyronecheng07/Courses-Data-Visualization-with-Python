@@ -1,0 +1,77 @@
+#### theme ########
+
+themes: darkgrid, whitegrid, dark, white, and ticks
+
+sns.set_style("darkgrid")
+sns.stripplot(x="day", y="total_bill", data=tips)
+
+*** background ***
+* dark
+* white and ticks provide more contrast
+
+*** grid ***
+
+* whitegrid is good for research paper
+
+########### despine ########
+
+sns.despine()
+=> remove top and right spines on the graph
+
+sns.despine(left=True, bottom=True)
+
+###### scaling plots #######
+
+sns.set_context("paper")
+=> size they are: paper, notebook, talk, and poster. The notebook style is the default. 
+=> poster is the largest
+
+#### Scaling Fonts and Line Widths ######
+
+# Set font scale and reduce grid line width to match
+sns.set_context("poster", font_scale = .5, rc={"grid.linewidth": 0.6})
+sns.stripplot(x="day", y="total_bill", data=tips)
+
+#### colour palette ########
+
+color palette: deep, muted, pastel, bright, dark, and colorblind. 
+
+# Save a palette to a variable:
+palette = sns.color_palette("bright")
+
+# Use palplot and pass in the variable:
+sns.palplot(palette)
+
+# Set the palette using the name of a palette:
+sns.set_palette("Paired")
+
+# Plot a chart:
+sns.stripplot(x="day", y="total_bill", data=tips)
+
+# Call the sns.set() function 
+sns.set()
+
+#### Qualitative Palettes #####
+
+When using a dataset that uses distinct but non-ordered categories, it’s good to use qualitative palettes.
+
+qualitative_colors = sns.color_palette("Set3", 10)
+sns.palplot(qualitative_colors)
+
+###### Sequential Palettes ######
+
+Sequential color palettes are appropriate when a variable exists as ordered categories, such as grade in school, or as continuous values that can be put into groups, such as yearly income.
+
+sequential_colors = sns.color_palette("RdPu", 10)
+sns.palplot(sequential_colors)
+
+###### Diverging Palettes #########
+
+Diverging palettes are best suited for datasets where both the low and high values might be of equal interest, such as hot and cold temperatures. 
+
+diverging_colors = sns.color_palette("RdBu", 10)
+sns.palplot(diverging_colors)
+
+#####
+for col in 'xy':
+  plt.hist(data[col], normed=True, alpha=0.5)

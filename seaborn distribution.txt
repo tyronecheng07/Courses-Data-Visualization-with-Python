@@ -1,0 +1,123 @@
+# using normal plot => sns.barplot (bar chart) from seaborn is to show mean => not detail enough
+
+### example 1 sns.kdeplot (distribution) ####
+
+import codecademylib3_seaborn
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+# Take in the data from the CSVs as NumPy arrays:
+set_one = np.genfromtxt("dataset1.csv", delimiter=",")
+set_two = np.genfromtxt("dataset2.csv", delimiter=",")
+set_three = np.genfromtxt("dataset3.csv", delimiter=",")
+set_four = np.genfromtxt("dataset4.csv", delimiter=",")
+
+# Creating a Pandas DataFrame:
+n=500
+df = pd.DataFrame({
+    "label": ["set_one"] * n + ["set_two"] * n + ["set_three"] * n + ["set_four"] * n,
+    "value": np.concatenate([set_one, set_two, set_three, set_four])
+})
+
+# Setting styles:
+sns.set_style("darkgrid")
+sns.set_palette("pastel")
+
+# Add your code below:
+sns.kdeplot(data=set_one, shade=True)
+sns.kdeplot(data=set_two, shade=True)
+sns.kdeplot(data=set_three, shade=True)
+sns.kdeplot(data=set_four, shade=True)
+
+plt.show()
+
+##### boxplot ####
+
+import codecademylib3_seaborn
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+# Take in the data from the CSVs as NumPy arrays:
+set_one = np.genfromtxt("dataset1.csv", delimiter=",")
+set_two = np.genfromtxt("dataset2.csv", delimiter=",")
+set_three = np.genfromtxt("dataset3.csv", delimiter=",")
+set_four = np.genfromtxt("dataset4.csv", delimiter=",")
+
+# Creating a Pandas DataFrame:
+n=500
+df = pd.DataFrame({
+    "label": ["set_one"] * n + ["set_two"] * n + ["set_three"] * n + ["set_four"] * n,
+    "value": np.concatenate([set_one, set_two, set_three, set_four])
+})
+
+# Setting styles:
+sns.set_style("darkgrid")
+sns.set_palette("pastel")
+
+# Add your code below:
+sns.boxplot(data=df, x='label', y='value')
+plt.show()
+
+###### violin plot ######
+
+* There are two KDE plots that are symmetrical along the center line.
+* A white dot represents the median.
+* The thick black line in the center of each violin represents the interquartile range.
+* The lines that extend from the center are the confidence intervals - just as we saw on the bar plots, a violin plot also displays the 95% confidence interval.
+
+import codecademylib3_seaborn
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+# Take in the data from the CSVs as NumPy arrays:
+set_one = np.genfromtxt("dataset1.csv", delimiter=",")
+set_two = np.genfromtxt("dataset2.csv", delimiter=",")
+set_three = np.genfromtxt("dataset3.csv", delimiter=",")
+set_four = np.genfromtxt("dataset4.csv", delimiter=",")
+
+# Creating a Pandas DataFrame:
+n=500
+df = pd.DataFrame({
+    "label": ["set_one"] * n + ["set_two"] * n + ["set_three"] * n + ["set_four"] * n,
+    "value": np.concatenate([set_one, set_two, set_three, set_four])
+})
+
+# Setting styles:
+sns.set_style("darkgrid")
+sns.set_palette("pastel")
+
+# Add your code below:
+sns.violinplot(data=df, x='label', y='value')
+plt.show()
+
+
+######  new function: FacedGrid 如果要一次过显示很多graph可以用这个function #######
+information to refer:
+
+To create multiple plots for comparison, Seaborn has a special (function)[https://seaborn.pydata.org/generated/seaborn.FacetGrid.html called FacetGrid. A FacetGrid takes in a function and creates an individual graph for which you specify the arguments!
+
+* In this graph, we want GDP on the X axis and Life Expectancy on the Y axis.
+* We want the columns to be split up for every Year in the data
+* We want the data points to be differentiated (hue) by Country.
+* We want to use a Matplotlib scatter plot to visualize the different graphs
+
+g = sns.FacetGrid(df, col='Year', hue='Country', col_wrap=4, height=2)
+g = (g.map(plt.scatter, 'GDP', 'LEABY', edgecolor="w").add_legend())
+plt.show()
+
+** it will shows all the data each year in many small boxes
+
+##
+
+# g3 = sns.FacetGrid(df, col="__________", col_wrap=3, size=4)
+# g3 = (g3.map(__plot___, "___x__", "___y___").add_legend())
+
+g3 = sns.FacetGrid(df, col="Country", col_wrap=3, height=4)
+g3 = (g3.map(plt.plot, "Year", "LEABY").add_legend())S
+plt.show()
